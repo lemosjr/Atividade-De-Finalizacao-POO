@@ -24,7 +24,7 @@ class Gerente(Funcionario):
         self.login = login
         self.senha = senha
     
-    def login_gerente(self,login, senha):
+    def login_gerente(self, login, senha):
         self.login = input("Usuario:")
         self.senha = input("Senha:")
         if self.login == login and self.senha == senha:
@@ -37,10 +37,14 @@ class Gerente(Funcionario):
            pass
             
             
-funcionario = Funcionario("joao", 28, "12345678910", "gerente", "pj", "contabilidade")
+funcionario = Gerente("joao", 28, "12345678910", "gerente", "pj", "contabilidade")
 
 print(funcionario)
-    
+
+funcionario.login_gerente()
+
+
+
     
     
         
