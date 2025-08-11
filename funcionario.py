@@ -37,13 +37,6 @@ class Gerente(Funcionario):
            pass
             
             
-funcionario = Gerente("joao", 28, "12345678910", "gerente", "pj", "contabilidade")
-
-print(funcionario)
-
-funcionario.login_gerente()
-
-
 
     
     
