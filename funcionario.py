@@ -34,9 +34,12 @@ class Gerente(Funcionario):
         
     def aumento(self):
         if self.login_gerente() == True:
-           
+           pass
             
             
+funcionario = Funcionario("joao", 28, "12345678910", "gerente", "pj", "contabilidade")
+
+print(funcionario)
     
     
     
