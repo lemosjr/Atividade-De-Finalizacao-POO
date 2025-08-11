@@ -17,7 +17,3 @@ class Funcionario:
     setor: {self.setor}
     
     '''
-
-funcionario = Funcionario("luis", 22, "12345678910", "contador", "PJ", "contabilidade")
-
-print(funcionario)
