@@ -88,6 +88,8 @@ def buscar_funcionario():
                 op = input()
                 if (op == "1"):
                     func.registrar_venda(200)
+                elif(op == "2"):
+                    func.calcular_comissao()
         
         else: 
             print("Funcionário não encontrado!")
