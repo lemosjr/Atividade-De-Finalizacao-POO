@@ -47,7 +47,7 @@ def cadastrar_funcionario():
         novo_funcionario = Jovem_aprendiz(nome, idade, cpf, "Jovem Aprendiz", contrato, setor)
 
     elif cargo == "4":
-        novo_funcionario = Estagiario(nome, idade, cpf, "Estágioário", contrato, setor)
+        novo_funcionario = Estagiario(nome, idade, cpf, "Estágiário", contrato, setor)
 
     elif cargo == "5":
         cargo = input("Digite o cargo do funcionário: ")
@@ -85,11 +85,20 @@ def buscar_funcionario():
 
             if (func.cargo == "Vendedor"):
                 print("Mostrar opções")
+                print("1 - Registrar venda")
+                print("2 - Calcular comissão")
                 op = input()
                 if (op == "1"):
                     func.registrar_venda(200)
+<<<<<<< Updated upstream
                 elif(op == "2"):
                     func.calcular_comissao()
+=======
+                    print("Venda registrada")
+                elif (op == "2"):
+                    func.calcular_comissao()
+                    
+>>>>>>> Stashed changes
         
         else: 
             print("Funcionário não encontrado!")
