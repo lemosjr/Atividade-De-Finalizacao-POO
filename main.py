@@ -1,6 +1,16 @@
-from funcionario import Funcionario
+from funcionario import *
 
 def cadastrar_funcionario():
+    cargo = input(f'''
+{"-" * 40}CARGOS{"-" * 40}
+        1 - Gerente
+        2 - Vendedor
+        3 - Jovem Aprendiz
+        4 - Estagiário
+        5 - Outro
+
+        Digite o número do cargo:
+''')
     nome =  input("Digite o nome do funcionário: ")
 
     while True:
@@ -21,10 +31,32 @@ def cadastrar_funcionario():
             break
         print("CPF inválido! Deve conter exatamente 11 dígitos numéricos.")
 
-    cargo = input("Digite o cargo do funcionário: ")
     contrato = input("Digite o tipo de contrato do funcionário: ")
     setor = input("Digite o setor do funcionário: ")
-    novo_funcionario = Funcionario(nome, idade, cpf, cargo, contrato, setor)
+
+    if cargo == "1":
+        login = input("Digite o Login do gerente: ")
+        senha = input("Digite a senha do gerente: ")
+        bonus_anual = float(input("Digite o bônus anual do gerente: "))
+        novo_funcionario = Gerente(nome, idade, cpf, "Gerente", contrato, setor, login, senha, bonus_anual)
+        
+    elif cargo == "2":
+        novo_funcionario = Vendedor(nome, idade, cpf, "Vendedor", contrato, setor)
+
+    elif cargo == "3":
+        novo_funcionario = Jovem_aprendiz(nome, idade, cpf, "Jovem Aprendiz", contrato, setor)
+
+    elif cargo == "4":
+        novo_funcionario = Estagiario(nome, idade, cpf, "Estágioário", contrato, setor)
+
+    elif cargo == "5":
+        cargo = input("Digite o cargo do funcionário: ")
+        novo_funcionario = Funcionario(nome, idade, cpf, cargo, contrato, setor)
+
+    else: 
+        print("Cargo inválido!")
+        return
+    
     funcionarios.append(novo_funcionario)
     print("Funcionário cadastrado com sucesso!")
 
@@ -46,7 +78,16 @@ def buscar_funcionario():
     cpf = input("Digite o cpf do funcionario que deseja buscar:")
     for func in funcionarios:
         if func.cpf == cpf:
-            return func
+            
+            print(func)
+
+            print("O que deseja fazer agora?")
+
+            if (func.cargo == "Vendedor"):
+                print("Mostrar opções")
+                op = input()
+                if (op == "1"):
+                    func.registrar_venda(200)
         
         else: 
             print("Funcionário não encontrado!")
@@ -92,6 +133,7 @@ def exibir_menu():
             
         if opcao == 1:
             cadastrar_funcionario()
+        
 
         elif opcao == 2:
             listar_funcionario()
