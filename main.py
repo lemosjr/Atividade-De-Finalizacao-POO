@@ -47,7 +47,7 @@ def cadastrar_funcionario():
         novo_funcionario = Jovem_aprendiz(nome, idade, cpf, "Jovem Aprendiz", contrato, setor)
 
     elif cargo == "4":
-        novo_funcionario = Estagiario(nome, idade, cpf, "Estágiário", contrato, setor)
+        novo_funcionario = Estagiario(nome, idade, cpf, "Estágioário", contrato, setor)
 
     elif cargo == "5":
         cargo = input("Digite o cargo do funcionário: ")
@@ -83,23 +83,60 @@ def buscar_funcionario():
 
             print("O que deseja fazer agora?")
 
-            if (func.cargo == "Vendedor"):
+            if func.cargo == "Gerente":
+                print(f'''
+{"-" * 40}MOSTRAR OPÇÕES{"-" * 40} \n
+    1 - Delegar tarefa
+    2 - aprovar despesa
+''')
+                op = input("Digite a opção desejada: ")
+                if op == "1":
+                    tarefa = input("Digite a tarefa que precisa atribuir: ")
+                    cpf_subordinado = input("Digite o cpf do subordinado que deseja buscar:")
+                    for subordinado in funcionarios:
+                        if subordinado.cpf == cpf_subordinado:
+                            func.delegar_tarefa(subordinado,tarefa)
+
+                elif op == "2":
+                    valor = float(input("Digite o valor da despesa: "))
+                    func.aprovar_despesa(valor)
+
+            elif (func.cargo == "Vendedor"):
                 print("Mostrar opções")
-                print("1 - Registrar venda")
-                print("2 - Calcular comissão")
                 op = input()
                 if (op == "1"):
                     func.registrar_venda(200)
-<<<<<<< Updated upstream
-                elif(op == "2"):
-                    func.calcular_comissao()
-=======
-                    print("Venda registrada")
+            
+            elif (func.cargo == "Jovem Aprendiz"):
+                print(f'''
+{"-" * 40}MOSTRAR OPÇÕES{"-" * 40} \n
+    1 - Participar de treinamento
+    2 -  Auxiliar setor 
+''')
+                op = input("Digite a opção que deseja: ")
+                if (op == "1"):
+                    nome_curso = input("Digite o nome do curso: ")
+                    func.participar_treinamento(nome_curso)
+
                 elif (op == "2"):
-                    func.calcular_comissao()
-                    
->>>>>>> Stashed changes
-        
+                    setor = input("Digite o setor que o jovem aprendiz faz parte: ")
+                    func.auxiliar_setor(setor)
+
+            elif (func.cargo == "Estagiário"):
+                print(f'''
+{"-" * 40}MOSTRAR OPÇÕES{"-" * 40} \n
+    1 - Entregar relatório
+    2 - Aprender habilidade
+''')
+                op = input("Digite a opção que deseja: ")
+                if (op == "1"):
+                    nome_relatorio = input("Digite o nome do relatório: ")
+                    func.entregar_relatorio(nome_relatorio)
+
+                elif (op == "2"):
+                    habilidade = input("Digite a habilidade que o estagiário aprendeu: ")
+                    func.aprender_habilidade(habilidade)
+
         else: 
             print("Funcionário não encontrado!")
             return None
@@ -111,13 +148,13 @@ def excluir_funcionario():
             confirmacao = input("Deseja realmente excluir o funcionário? (S/N): ")
             if confirmacao.upper() == "S":
                 funcionarios.remove(func)
-                print(f'Funcionário {func.nome} removido com sucesso!')
+                return f'Funcionário {func.nome} removido com sucesso!'
+            
             else:
-                print('Operação cancelada!')
-            return  
-    
-    print("Funcionário não encontrado!")
-
+                return f'Operação cancelada!'
+        
+        else:
+            print("Funcionário não encontrado!")
     return None
 
 opcao = 0
@@ -159,5 +196,4 @@ def exibir_menu():
             print("Saindo do sistema...")
 
         else:
-            print("Opção inválida. Tente novamente!")
-exibir_menu()
+            break
