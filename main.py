@@ -194,6 +194,3 @@ def exibir_menu():
 
         elif opcao == 5:
             print("Saindo do sistema...")
-
-        else:
-            break
