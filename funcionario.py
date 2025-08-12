@@ -24,7 +24,7 @@ class Gerente(Funcionario):
         self.login = login
         self.senha = senha
     
-    def login_gerente(self,login, senha):
+    def login_gerente(self, login, senha):
         self.login = input("Usuario:")
         self.senha = input("Senha:")
         if self.login == login and self.senha == senha:
