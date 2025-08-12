@@ -61,26 +61,25 @@ def cadastrar_funcionario():
     print("Funcionário cadastrado com sucesso!")
 
 def listar_funcionario():
-    for func in funcionarios:
-        if not funcionarios:
-            print("Nenhum funcionário cadastrado!")
+    if not funcionarios:
+        print("Nenhum funcionário cadastrado!")
+        return
 
-        else:
-            print(func)
-            print("\n")
-            print("-" * 40)
-            print(f'A lista possui {len(funcionarios)} funcionários.')
-            print("-" * 40)
-            print("Fim da lista de Funcionários")
+    for func in funcionarios:
+        print(func)
+        print("\n")
+    
+    print("-" * 40)
+    print(f'A lista possui {len(funcionarios)} funcionários.')
+    print("-" * 40)
+    print("Fim da lista de Funcionários")
 
 
 def buscar_funcionario():
     cpf = input("Digite o cpf do funcionario que deseja buscar:")
     for func in funcionarios:
         if func.cpf == cpf:
-            
             print(func)
-
             print("O que deseja fazer agora?")
 
             if func.cargo == "Gerente":
@@ -101,45 +100,51 @@ def buscar_funcionario():
                     valor = float(input("Digite o valor da despesa: "))
                     func.aprovar_despesa(valor)
 
-            elif (func.cargo == "Vendedor"):
+            elif func.cargo == "Vendedor":
                 print("Mostrar opções")
+                print("1 - Registrar venda")
+                print("2 - Calcular comissão")
                 op = input()
-                if (op == "1"):
-                    func.registrar_venda(200)
+                if op == "1":
+                    func.registrar_venda(int(input("Digite o valor da venda:R$")))
+                elif op == "2":
+                    func.calcular_comissao()
+                
             
-            elif (func.cargo == "Jovem Aprendiz"):
+            elif func.cargo == "Jovem Aprendiz":
                 print(f'''
 {"-" * 40}MOSTRAR OPÇÕES{"-" * 40} \n
     1 - Participar de treinamento
     2 -  Auxiliar setor 
 ''')
                 op = input("Digite a opção que deseja: ")
-                if (op == "1"):
+                if op == "1":
                     nome_curso = input("Digite o nome do curso: ")
                     func.participar_treinamento(nome_curso)
 
-                elif (op == "2"):
+                elif op == "2":
                     setor = input("Digite o setor que o jovem aprendiz faz parte: ")
                     func.auxiliar_setor(setor)
 
-            elif (func.cargo == "Estagiário"):
+            elif func.cargo == "Estagiário":
                 print(f'''
 {"-" * 40}MOSTRAR OPÇÕES{"-" * 40} \n
     1 - Entregar relatório
     2 - Aprender habilidade
 ''')
                 op = input("Digite a opção que deseja: ")
-                if (op == "1"):
+                if op == "1":
                     nome_relatorio = input("Digite o nome do relatório: ")
                     func.entregar_relatorio(nome_relatorio)
 
-                elif (op == "2"):
+                elif op == "2":
                     habilidade = input("Digite a habilidade que o estagiário aprendeu: ")
                     func.aprender_habilidade(habilidade)
+            
+            return
+            
+    print("Funcionário não encontrado!")
 
-        else: 
-            print("Funcionário não encontrado!")
-            return None
 
 def excluir_funcionario():
     cpf = input("Digite o CPF do funcionário que deseja excluir: ")
@@ -148,21 +153,17 @@ def excluir_funcionario():
             confirmacao = input("Deseja realmente excluir o funcionário? (S/N): ")
             if confirmacao.upper() == "S":
                 funcionarios.remove(func)
-                return f'Funcionário {func.nome} removido com sucesso!'
-            
+                print(f'Funcionário {func.nome} removido com sucesso!')
             else:
-                return f'Operação cancelada!'
-        
-        else:
-            print("Funcionário não encontrado!")
+                print('Operação cancelada!')
+            return
+            
+    print("Funcionário não encontrado!")
     return None
 
-opcao = 0
-menu = True
-funcionarios = []
-
 def exibir_menu():
-    while True:
+    global menu, opcao
+    while menu:
         print(f'''
     {"-" * 40}MENU{"-" * 40}
             1 - Cadastrar Funcionário
@@ -174,23 +175,31 @@ def exibir_menu():
         
         try:
             opcao = int(input("Escolha uma opção: "))
+            
+            if opcao == 1:
+                cadastrar_funcionario()
+            
+            elif opcao == 2:
+                listar_funcionario()
+            
+            elif opcao == 3:
+                buscar_funcionario()
+            
+            elif opcao == 4:
+                excluir_funcionario()
 
+            elif opcao == 5:
+                print("Saindo do sistema...")
+                menu = False
+
+            else:
+                print("Opção inválida! Tente novamente.")
+        
         except ValueError:
             print("Digite apenas números!")
-            exibir_menu()
-            
-        if opcao == 1:
-            cadastrar_funcionario()
-        
 
-        elif opcao == 2:
-            listar_funcionario()
-        
-        elif opcao == 3:
-            buscar_funcionario()
-        
-        elif opcao == 4:
-            excluir_funcionario()
-
-        elif opcao == 5:
-            print("Saindo do sistema...")
+# Bloco principal de execução
+opcao = 0
+menu = True
+funcionarios = []
+exibir_menu()
