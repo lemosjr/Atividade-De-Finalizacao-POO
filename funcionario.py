@@ -35,9 +35,18 @@ class Gerente(Funcionario):
     def aumento(self):
         if self.login_gerente() == True:
            pass
-            
-            
 
+class Vendedor(Funcionario):
+    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
+        super().__init__(nome, idade, cpf, cargo, contrato, setor)
+        
+class jovem_aprendiz(Funcionario):
+    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
+        super().__init__(nome, idade, cpf, cargo, contrato, setor)
+        
+class estagiario(Funcionario):
+    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
+        super().__init__(nome, idade, cpf, cargo, contrato, setor)
     
-    
+
         
