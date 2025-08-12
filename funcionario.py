@@ -15,7 +15,6 @@ class Funcionario:
     # Setter para 'nome'
     @nome.setter
     def nome(self, novo_nome):
-        # Aqui você poderia adicionar validações, como não permitir nomes vazios
         if novo_nome and isinstance(novo_nome, str):
             self._nome = novo_nome
         else:
@@ -29,7 +28,6 @@ class Funcionario:
     # Setter para 'idade'
     @idade.setter
     def idade(self, nova_idade):
-        # Exemplo de validação: idade deve ser um número positivo
         if isinstance(nova_idade, int) and nova_idade > 0:
             self._idade = nova_idade
         else:
@@ -43,7 +41,6 @@ class Funcionario:
     # Setter para 'cpf'
     @cpf.setter
     def cpf(self, novo_cpf):
-        # Exemplo de validação: verificar se o CPF tem 11 dígitos (simplificado)
         if isinstance(novo_cpf, str) and len(novo_cpf) == 11:
             self._cpf = novo_cpf
         else:
@@ -80,8 +77,6 @@ class Funcionario:
         self._setor = novo_setor
 
     def __str__(self):
-        # Note que aqui usamos os getters (self.nome, self.idade, etc.)
-        # para acessar os valores, o que é uma boa prática.
         return f'''
     nome: {self.nome}
     idade: {self.idade}
@@ -91,54 +86,59 @@ class Funcionario:
     setor: {self.setor}
     '''
 
-# Exemplo de uso:
-funcionario1 = Funcionario("João da Silva", 30, "12345678901", "Desenvolvedor", "CLT", "Tecnologia")
-
-# Usando o getter para obter o nome
-print(f"Nome original: {funcionario1.nome}")
-
-# Usando o setter para alterar o nome
-funcionario1.nome = "João de Souza"
-print(f"Nome alterado: {funcionario1.nome}")
-
-# Tentando atribuir um valor inválido para a idade (o setter irá bloquear)
-funcionario1.idade = -5
-print(f"Idade (após tentativa de alteração inválida): {funcionario1.idade}")
-
-
-# Exibindo o objeto completo
-print("\nDados do Funcionário:")
-print(funcionario1)
-
 class Gerente(Funcionario):
-    def __init__(self, nome, idade, cpf, cargo, contrato, setor, login, senha):
-        super().__init__(nome, idade, cpf, cargo, contrato, setor)    
+    def __init__(self, nome, idade, cpf, cargo, contrato, setor, login, senha, bonus_anual):
+        super().__init__(nome, idade, cpf, cargo, contrato, setor)      
         self.login = login
         self.senha = senha
-    
-    def login_gerente(self, login, senha):
-        self.login = input("Usuario:")
-        self.senha = input("Senha:")
-        if self.login == login and self.senha == senha:
+        self.bonus_anual = bonus_anual
+
+    def delegar_tarefa(self, funcionario, tarefa):
+        print(f"O gerente {self.nome} delegou a tarefa '{tarefa}' para o funcionário {funcionario.nome}.")
+
+    def aprovar_despesa(self, valor):
+        if valor > 0 and valor <= self.bonus_anual:
+            print(f"Gerente {self.nome} aprovou a despesa no valor de R${valor:.2f}.")
             return True
         else:
+            print(f"Despesa de R${valor:.2f} não autorizada. Excede o limite ou é inválida.")
             return False
-        
-    def aumento(self):
-        if self.login_gerente() == True:
-           pass
 
 class Vendedor(Funcionario):
     def __init__(self, nome, idade, cpf, cargo, contrato, setor):
         super().__init__(nome, idade, cpf, cargo, contrato, setor)
-        
-class jovem_aprendiz(Funcionario):
-    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
-        super().__init__(nome, idade, cpf, cargo, contrato, setor)
-        
-class estagiario(Funcionario):
-    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
-        super().__init__(nome, idade, cpf, cargo, contrato, setor)
-    
+        self.vendas = []
 
+    def registrar_venda(self, valor_da_venda):
+        if valor_da_venda > 0:
+            self.vendas.append(valor_da_venda)
+            print(f"Venda de R${valor_da_venda:.2f} registrada para o vendedor {self.nome}.")
+        else:
+            print("Valor da venda inválido.")
+
+    def calcular_comissao(self, percentual_comissao):
+        total_vendas = sum(self.vendas)
+        comissao = total_vendas * (percentual_comissao / 100)
+        print(f"A comissão do vendedor {self.nome} é de R${comissao:.2f} sobre um total de R${total_vendas:.2f} em vendas.")
+        return comissao
+        
+class Jovem_aprendiz(Funcionario):
+    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
+        super().__init__(nome, idade, cpf, cargo, contrato, setor)
+        
+    def participar_treinamento(self, nome_curso):
+        print(f"O Jovem Aprendiz {self.nome} está participando do treinamento '{nome_curso}'.")
+
+    def auxiliar_setor(self):
+        print(f"{self.nome} está auxiliando nas tarefas gerais do setor de {self.setor}.")
+        
+class Estagiario(Funcionario):
+    def __init__(self, nome, idade, cpf, cargo, contrato, setor):
+        super().__init__(nome, idade, cpf, cargo, contrato, setor)
+        
+    def entregar_relatorio(self, nome_relatorio):
+        print(f"O estagiário {self.nome} entregou o relatório: '{nome_relatorio}'.")
+
+    def aprender_habilidade(self, habilidade):
+        print(f"{self.nome}, do setor de {self.setor}, aprendeu a nova habilidade: '{habilidade}'.")
         
