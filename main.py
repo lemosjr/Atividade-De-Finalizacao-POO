@@ -100,13 +100,13 @@ def excluir_funcionario():
             confirmacao = input("Deseja realmente excluir o funcionário? (S/N): ")
             if confirmacao.upper() == "S":
                 funcionarios.remove(func)
-                return f'Funcionário {func.nome} removido com sucesso!'
-            
+                print(f'Funcionário {func.nome} removido com sucesso!')
             else:
-                return f'Operação cancelada!'
-        
-        else:
-            print("Funcionário não encontrado!")
+                print('Operação cancelada!')
+            return  
+    
+    print("Funcionário não encontrado!")
+
     return None
 
 opcao = 0
